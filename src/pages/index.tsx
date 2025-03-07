@@ -1,5 +1,7 @@
 import { PostCard } from "@/components/post-card";
+import { PostCardLoading } from "@/components/post-card-loading";
 import { usePosts } from "@/hooks/use-posts";
+import { useMemo } from "react";
 import { useSearchParams } from "react-router";
 
 function parseNumberFromSearchParams(
@@ -17,19 +19,25 @@ function parseNumberFromSearchParams(
 export const PostsPage = () => {
 	const [searchParams] = useSearchParams();
 
-	const page = parseNumberFromSearchParams(searchParams.get("page"), 0);
-	const limit = parseNumberFromSearchParams(searchParams.get("limit"), 10);
+	const page = useMemo(
+		() => parseNumberFromSearchParams(searchParams.get("page"), 0),
+		[searchParams.toString()]
+	);
+	const limit = useMemo(
+		() => parseNumberFromSearchParams(searchParams.get("limit"), 10),
+		[searchParams.toString()]
+	);
 
 	const { data: posts, isLoading } = usePosts({ page, limit });
 
 	return (
 		<div className="min-h-screen py-20 max-w-lg mx-auto">
 			<ul className="flex flex-col gap-6">
-				{posts && !isLoading ? (
-					posts.map((post) => <PostCard key={post.id} post={post} />)
-				) : (
-					<div>Loading...</div>
-				)}
+				{posts && !isLoading
+					? posts.map((post) => <PostCard key={post.id} post={post} />)
+					: Array.from({ length: limit }).map((_, index) => (
+							<PostCardLoading key={index} />
+					  ))}
 			</ul>
 		</div>
 	);
