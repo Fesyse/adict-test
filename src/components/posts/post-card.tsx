@@ -1,7 +1,12 @@
+import {
+	Card,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
 import { Post } from "@/types/post";
 import { ChevronRight } from "lucide-react";
 import { Link } from "react-router";
-import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
 type PostCardProps = {
 	post: Post;

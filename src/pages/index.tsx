@@ -1,6 +1,6 @@
-import { PostCard } from "@/components/post-card";
-import { PostCardLoading } from "@/components/post-card-loading";
-import { PostsFilters } from "@/components/posts-filters";
+import { PostCard } from "@/components/posts/post-card";
+import { PostCardLoading } from "@/components/posts/post-card-loading";
+import { PostsFilters } from "@/components/posts/posts-filters";
 import { usePosts } from "@/hooks/use-posts";
 import { parseNumberFromSearchParams } from "@/lib/utils";
 import { useSearchParams } from "react-router";
