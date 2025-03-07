@@ -1,22 +1,31 @@
 import { postsService } from "@/services/posts.service";
+import { usePostsFiltersStore } from "@/store/posts-filters.store";
 import { useQuery } from "@tanstack/react-query";
 
-export type UsePostsOptions = {
-	page: number;
-	limit: number;
-};
+export const usePosts = () => {
+	const { page, limit, title, userIDs } = usePostsFiltersStore();
 
-export const usePosts = (options: UsePostsOptions) => {
 	return useQuery({
 		initialData: null,
-		queryKey: ["posts", options],
+		queryKey: ["posts", { page, limit, title, userIDs }],
 		queryFn: async () => {
-			const posts = await postsService.getPosts();
+			const posts = (await postsService.getPosts())
+				// Filter by title
+				.filter((post) => {
+					if (!title || post.title.toLowerCase().includes(title.toLowerCase()))
+						return true;
 
-			return posts.slice(
-				options.page * options.limit,
-				options.page * options.limit + options.limit
-			);
+					return false;
+				})
+				// Filter by userIDs
+				.filter((post) => {
+					if (!userIDs || userIDs.includes(post.userId)) return true;
+
+					return false;
+				});
+
+			// Implements pagination
+			return posts.slice(page * limit, page * limit + limit);
 		},
 	});
 };
