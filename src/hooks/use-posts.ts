@@ -1,9 +1,18 @@
 import { postsService } from "@/services/posts.service";
 import { usePostsFiltersStore } from "@/store/posts-filters.store";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useSearchParams } from "react-router";
 
 export const usePosts = () => {
+	const [searchParams] = useSearchParams();
 	const { title, userIDs } = usePostsFiltersStore();
+	const queryClient = useQueryClient();
+
+	// Invalidation on page change
+	useEffect(() => {
+		queryClient.invalidateQueries({ queryKey: ["posts", { title, userIDs }] });
+	}, [searchParams.toString()]);
 
 	return useQuery({
 		initialData: null,
