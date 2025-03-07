@@ -17,7 +17,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
 						<CardDescription>{post.body}</CardDescription>
 
 						<div className="flex justify-between gap-2">
-							<p className="text-foreground/80">Posted by @{post.userId}</p>
+							<div className="text-foreground/80">Posted by @{post.userId}</div>
 
 							<ChevronRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
 						</div>

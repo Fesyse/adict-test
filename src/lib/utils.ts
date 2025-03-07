@@ -16,3 +16,7 @@ export function parseNumberFromSearchParams(
 
 	return parsedValue;
 }
+
+export function removeDuplicates<T>(array: T[]): T[] {
+	return Array.from(new Set(array));
+}

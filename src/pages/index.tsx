@@ -1,17 +1,25 @@
 import { PostCard } from "@/components/post-card";
 import { PostCardLoading } from "@/components/post-card-loading";
+import { PostsFilters } from "@/components/posts-filters";
 import { usePosts } from "@/hooks/use-posts";
-import { usePostsFiltersStore } from "@/store/posts-filters.store";
+import { parseNumberFromSearchParams } from "@/lib/utils";
+import { useSearchParams } from "react-router";
 
 export const PostsPage = () => {
+	const [searchParams] = useSearchParams();
 	const { data: posts, isLoading } = usePosts();
-	const limit = usePostsFiltersStore((s) => s.limit);
+
+	const page = parseNumberFromSearchParams(searchParams.get("page"), 0);
+	const limit = parseNumberFromSearchParams(searchParams.get("limit"), 10);
+
+	const paginatedPosts = posts?.slice(page * limit, page * limit + limit);
 
 	return (
 		<div className="min-h-screen py-20 max-w-lg mx-auto">
+			<PostsFilters className="mb-8" />
 			<ul className="flex flex-col gap-6">
-				{posts?.length && !isLoading ? (
-					posts.map((post) => <PostCard key={post.id} post={post} />)
+				{paginatedPosts?.length && !isLoading ? (
+					paginatedPosts.map((post) => <PostCard key={post.id} post={post} />)
 				) : posts?.length === 0 ? (
 					<p className="text-center text-muted-foreground">No posts found</p>
 				) : (
