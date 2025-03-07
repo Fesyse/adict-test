@@ -34,21 +34,27 @@ export const PostsFilters: React.FC<PostsFiltersProps> = ({ className }) => {
 	};
 
 	return (
-		<div className={cn("flex justify-between", className)}>
+		<div
+			className={cn(
+				"flex flex-col sm:flex-row gap-2 justify-between",
+				className
+			)}
+		>
 			<Input
-				className="w-2/5"
+				className="sm:w-2/5"
 				placeholder="Filter by title..."
 				onChange={updateTitle}
 			/>
 
 			{defaultUserIDs && !isLoading ? (
 				<MultipleSelect
+					width="100%"
 					items={defaultUserIDs.map(String)}
 					itemName="user ID"
 					onChange={updateUserIDs}
 				/>
 			) : (
-				<Skeleton className="w-1/5" />
+				<Skeleton className="sm:w-1/5" />
 			)}
 		</div>
 	);

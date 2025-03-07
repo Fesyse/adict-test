@@ -22,11 +22,15 @@ type MultipleSelectProps = {
 	items: string[];
 	onChange?: (items: string[]) => void;
 	itemName?: string;
+
+	width?: string;
+	className?: string;
 };
 
 export function MultipleSelect({
 	items,
 	itemName = "item",
+	width = "200",
 	onChange,
 }: MultipleSelectProps) {
 	const inputRef = React.useRef<HTMLInputElement>(null);
@@ -54,14 +58,15 @@ export function MultipleSelect({
 	};
 
 	return (
-		<div className="max-w-[200px]">
+		<div style={{ maxWidth: width }}>
 			<Popover open={openCombobox} onOpenChange={onComboboxOpenChange}>
 				<PopoverTrigger asChild>
 					<Button
 						variant="outline"
 						role="combobox"
 						aria-expanded={openCombobox}
-						className="w-[200px] justify-between text-foreground"
+						style={{ width }}
+						className="justify-between text-foreground"
 					>
 						<span className="truncate">
 							{selectedValues.length === 0 && `Select ${itemName}s`}
@@ -74,7 +79,7 @@ export function MultipleSelect({
 						<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 					</Button>
 				</PopoverTrigger>
-				<PopoverContent className="w-[200px] p-0">
+				<PopoverContent style={{ width }} className="p-0">
 					<Command loop>
 						<CommandInput
 							ref={inputRef}
