@@ -1,5 +1,6 @@
 import { commentsService } from "@/services/comments.service";
 import { postsService } from "@/services/posts.service";
+import { usersService } from "@/services/users.service";
 import { useQuery } from "@tanstack/react-query";
 
 export const usePost = (id: number) => {
@@ -10,8 +11,9 @@ export const usePost = (id: number) => {
 				postsService.getPost(id),
 				commentsService.getComments(id),
 			]);
+			const author = await usersService.getUserById(post.userId);
 
-			return { ...post, comments };
+			return { ...post, comments, author };
 		},
 		retry: false,
 	});

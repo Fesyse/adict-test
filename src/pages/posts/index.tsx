@@ -1,3 +1,9 @@
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -32,7 +38,7 @@ export const PostPage = () => {
 	if (isError) return <PostNotFound />;
 
 	return (
-		<div className="min-h-screen flex justify-center flex-col max-w-lg mx-auto">
+		<div className="min-h-screen flex justify-center flex-col max-w-lg mx-auto py-20">
 			{isLoading || !post ? (
 				<Card>
 					<CardHeader>
@@ -47,19 +53,35 @@ export const PostPage = () => {
 			) : (
 				<Card>
 					<CardHeader>
-						<CardTitle>{post.title}</CardTitle>
+						<CardTitle className="text-xl">{post.title}</CardTitle>
 						<CardDescription>{post.body}</CardDescription>
+						<div className="flex justify-between gap-2">
+							<div className="text-foreground/80">
+								Posted by{" "}
+								<span className="font-semibold">@{post.author.username}</span>
+							</div>
+						</div>
 					</CardHeader>
 					<CardContent>
-						<h2 className="text-xl font-bold">Comments</h2>
-						<ul className="flex flex-col gap-2">
-							{post.comments.map((comment) => (
-								<li key={comment.id}>
-									<p className="text-sm font-semibold">{comment.name}</p>
-									<p className="text-sm text-foreground/85">{comment.body}</p>
-								</li>
-							))}
-						</ul>
+						<Accordion type="single" collapsible>
+							<AccordionItem value="comments">
+								<AccordionTrigger>Show comments</AccordionTrigger>
+								<AccordionContent asChild>
+									<ul className="flex flex-col gap-3">
+										{post.comments.map((comment) => (
+											<li key={comment.id}>
+												<p className="text-sm font-semibold">
+													{"Author: " + post.userId} • {comment.name}
+												</p>
+												<p className="text-sm text-foreground/85">
+													{comment.body}
+												</p>
+											</li>
+										))}
+									</ul>
+								</AccordionContent>
+							</AccordionItem>
+						</Accordion>
 					</CardContent>
 				</Card>
 			)}
