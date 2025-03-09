@@ -12,6 +12,8 @@ class PostsService {
 			},
 		});
 
+		if (!response.ok) throw new Error("Failed to fetch posts");
+
 		return response.json();
 	}
 
@@ -23,9 +25,24 @@ class PostsService {
 			},
 		});
 
+		if (!response.ok) throw new Error("Failed to fetch posts user IDs");
+
 		const posts: Post[] = await response.json();
 
 		return removeDuplicates(posts.map((post) => post.userId));
+	}
+
+	async getPost(id: number): Promise<Post> {
+		const response = await fetch(`${this.BASE_URL}/${id}`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+
+		if (!response.ok) throw new Error("Failed to fetch post");
+
+		return response.json();
 	}
 }
 
