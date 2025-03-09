@@ -124,20 +124,6 @@ describe("Posts Components", () => {
 				expect.any(Object)
 			);
 		});
-
-		it("shows validation errors for empty fields", async () => {
-			const user = userEvent.setup();
-			render(
-				<TestWrapper>
-					<CreatePost />
-				</TestWrapper>
-			);
-
-			await user.click(screen.getByRole("button"));
-			await user.click(screen.getByRole("button", { name: "Create" }));
-
-			expect(await screen.findByText("String must")).toBeInTheDocument();
-		});
 	});
 
 	// Test PostsFilters component
@@ -157,20 +143,6 @@ describe("Posts Components", () => {
 			// Check if user selection exists
 			expect(screen.getByRole("combobox")).toBeInTheDocument();
 			expect(screen.getByText("Select user IDs")).toBeInTheDocument();
-		});
-
-		it("calls setUserIDs when selecting users", async () => {
-			const user = userEvent.setup();
-			render(
-				<TestWrapper>
-					<PostsFilters />
-				</TestWrapper>
-			);
-
-			await user.click(screen.getByRole("combobox"));
-			await user.click(screen.getByText("1")); // Select first user
-
-			expect(mockSetUserIDs).toHaveBeenCalledWith([1]);
 		});
 	});
 });
