@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
@@ -11,9 +12,14 @@ export default defineConfig({
 		},
 	},
 
-	// @ts-expect-error - Somehow this is not a valid type, but in docs it's alright
 	plugins: [react(), tailwindcss()],
 	server: {
 		port: 3000,
+	},
+	test: {
+		environment: "jsdom",
+		setupFiles: ["./src/setupTests.ts"],
+		globals: true,
+		css: true,
 	},
 });
