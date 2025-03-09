@@ -13,8 +13,7 @@ export const useEditPost = () => {
 
 	return useMutation({
 		mutationFn: async (data: EditPostSchema) => {
-			const post = await postsService.editPost({
-				id: Number(id),
+			const post = await postsService.editPost(Number(id), {
 				userId: session.user.id,
 				...data,
 			});

@@ -1,6 +1,8 @@
 import { removeDuplicates } from "@/lib/utils";
 import { type Post } from "@/types/post";
 
+type PostRequest = Omit<Post, "id">;
+
 class PostsService {
 	private BASE_URL = "http://localhost:8000/api/posts";
 
@@ -45,7 +47,7 @@ class PostsService {
 		return response.json();
 	}
 
-	async createPost(post: Post): Promise<Post> {
+	async createPost(post: PostRequest): Promise<Post> {
 		const response = await fetch(this.BASE_URL, {
 			method: "POST",
 			body: JSON.stringify(post),
@@ -59,10 +61,10 @@ class PostsService {
 		return response.json();
 	}
 
-	async editPost(post: Post): Promise<Post> {
-		const response = await fetch(`${this.BASE_URL}/${post.id}`, {
+	async editPost(id: number, newPost: PostRequest): Promise<Post> {
+		const response = await fetch(`${this.BASE_URL}/${id}`, {
 			method: "PUT",
-			body: JSON.stringify(post),
+			body: JSON.stringify(newPost),
 			headers: {
 				"Content-Type": "application/json",
 			},

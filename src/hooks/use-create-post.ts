@@ -13,7 +13,6 @@ export const useCreatePost = () => {
 	return useMutation({
 		mutationFn: async (data: CreatePostSchema) => {
 			const post = await postsService.createPost({
-				id: 0,
 				userId: session.user.id,
 				...data,
 			});
