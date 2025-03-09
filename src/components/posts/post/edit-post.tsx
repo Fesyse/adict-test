@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useEditPost } from "@/hooks/use-edit-post";
 import { editPostSchema, EditPostSchema } from "@/lib/schemas";
 import { Comment } from "@/types/comment";
 import { type Post } from "@/types/post";
@@ -23,6 +24,7 @@ type EditPostProps = {
 };
 
 export const EditPost: React.FC<EditPostProps> = ({ post, setIsEditing }) => {
+	const { mutate: editPost } = useEditPost();
 	const form = useForm<EditPostSchema>({
 		resolver: zodResolver(editPostSchema),
 		defaultValues: {
@@ -32,7 +34,11 @@ export const EditPost: React.FC<EditPostProps> = ({ post, setIsEditing }) => {
 	});
 
 	const handleSubmit = (data: EditPostSchema) => {
-		console.log(data);
+		editPost(data, {
+			onSuccess: () => {
+				setIsEditing(false);
+			},
+		});
 	};
 
 	return (

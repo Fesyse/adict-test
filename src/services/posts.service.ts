@@ -58,6 +58,20 @@ class PostsService {
 
 		return response.json();
 	}
+
+	async editPost(post: Post): Promise<Post> {
+		const response = await fetch(`${this.BASE_URL}/${post.id}`, {
+			method: "PUT",
+			body: JSON.stringify(post),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+
+		if (!response.ok) throw new Error("Failed to edit post");
+
+		return response.json();
+	}
 }
 
 export const postsService = new PostsService();

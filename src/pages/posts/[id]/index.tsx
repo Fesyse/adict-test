@@ -20,7 +20,7 @@ import { Pencil, PencilOff } from "lucide-react";
 import { useState } from "react";
 import { useParams } from "react-router";
 
-type PostPageParams = {
+export type PostPageParams = {
 	id: string;
 };
 
@@ -42,7 +42,7 @@ export const PostPage = () => {
 	if (isError) return <PostNotFound />;
 
 	return (
-		<div className="min-h-screen flex justify-center flex-col max-w-lg mx-auto gap-2 py-20">
+		<div className="min-h-screen flex justify-center flex-col max-w-xl mx-auto gap-2 py-20">
 			<GoBackButton className="w-fit" variant="outline" />
 			{!isLoading && post ? (
 				<Card className="relative">
