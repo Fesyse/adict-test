@@ -44,6 +44,20 @@ class PostsService {
 
 		return response.json();
 	}
+
+	async createPost(post: Post): Promise<Post> {
+		const response = await fetch(this.BASE_URL, {
+			method: "POST",
+			body: JSON.stringify(post),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+
+		if (!response.ok) throw new Error("Failed to create post");
+
+		return response.json();
+	}
 }
 
 export const postsService = new PostsService();

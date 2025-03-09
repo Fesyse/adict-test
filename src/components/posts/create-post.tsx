@@ -18,21 +18,18 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useCreatePost } from "@/hooks/use-create-post";
 import { createPostSchema, type CreatePostSchema } from "@/lib/schemas";
-import { usePostsFiltersStore } from "@/store/posts-filters.store";
-import { Post } from "@/types/post";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQueryClient } from "@tanstack/react-query";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
+import { Loader } from "../ui/loader";
 
 export const CreatePost = () => {
 	const [open, setOpen] = useState(false);
-	const { title, userIDs } = usePostsFiltersStore();
 
-	const queryClient = useQueryClient();
+	const { mutate: createPost, isPending } = useCreatePost();
 	const form = useForm<CreatePostSchema>({
 		resolver: zodResolver(createPostSchema),
 		defaultValues: {
@@ -41,17 +38,12 @@ export const CreatePost = () => {
 		},
 	});
 
-	const handleSubmit = (post: CreatePostSchema) => {
-		queryClient.setQueryData(
-			["posts", { title, userIDs }],
-			(oldPosts: Post[]) => {
-				// Adding the new post to start of the array LOCALY
-				return [{ ...post, id: oldPosts.length + 1, userId: 1 }, ...oldPosts];
-			}
-		);
-
-		toast.success("Post successfully created!");
-		setOpen(false);
+	const handleSubmit = (data: CreatePostSchema) => {
+		createPost(data, {
+			onSuccess: () => {
+				setOpen(false);
+			},
+		});
 	};
 
 	return (
@@ -110,7 +102,15 @@ export const CreatePost = () => {
 							>
 								Cancel
 							</Button>
-							<Button>Create</Button>
+							<Button>
+								{isPending ? (
+									<span className="flex gap-2">
+										<Loader /> Creating...
+									</span>
+								) : (
+									"Create"
+								)}
+							</Button>
 						</DialogFooter>
 					</form>
 				</Form>
