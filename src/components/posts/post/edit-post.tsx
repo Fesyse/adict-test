@@ -81,7 +81,16 @@ export const EditPost: React.FC<EditPostProps> = ({ post, setIsEditing }) => {
 							Posted by{" "}
 							<span className="font-semibold">@{post.author.username}</span>
 						</div>
-						<Button className="self-end">Save</Button>
+						<div className="flex gap-2">
+							<Button
+								variant="secondary"
+								type="button"
+								onClick={() => setIsEditing(false)}
+							>
+								Cancel
+							</Button>
+							<Button>Save</Button>
+						</div>
 					</div>
 				</form>
 			</Form>

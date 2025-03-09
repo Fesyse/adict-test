@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/card";
 import { type Post } from "@/types/post";
 import { ChevronRight } from "lucide-react";
-import { Link } from "react-router";
+import { NavLink } from "react-router";
 
 type PostCardProps = {
 	post: Post;
@@ -15,7 +15,7 @@ type PostCardProps = {
 export const PostCard: React.FC<PostCardProps> = ({ post }) => {
 	return (
 		<li>
-			<Link to={`/posts/${post.id}`}>
+			<NavLink to={`/posts/${post.id}`}>
 				<Card className="group">
 					<CardHeader>
 						<CardTitle>{post.title}</CardTitle>
@@ -28,7 +28,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
 						</div>
 					</CardHeader>
 				</Card>
-			</Link>
+			</NavLink>
 		</li>
 	);
 };

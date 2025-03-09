@@ -1,5 +1,6 @@
 import { GoBackButton } from "@/components/go-back-button";
 import { EditPost } from "@/components/posts/post/edit-post";
+import { PostActions } from "@/components/posts/post/post-actions";
 import { PostPageLoading } from "@/components/posts/post/post-page-loading";
 import {
 	Accordion,
@@ -7,7 +8,6 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
 import {
 	Card,
 	CardContent,
@@ -16,7 +16,6 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { usePost } from "@/hooks/use-post";
-import { Pencil, PencilOff } from "lucide-react";
 import { useState } from "react";
 import { useParams } from "react-router";
 
@@ -43,18 +42,13 @@ export const PostPage = () => {
 
 	return (
 		<div className="min-h-screen flex justify-center flex-col max-w-xl mx-auto gap-2 py-20">
-			<GoBackButton className="w-fit" variant="outline" />
+			<div className="flex justify-between gap-4">
+				<GoBackButton className="w-fit" variant="outline" />
+				<PostActions setIsEditing={setIsEditing} />
+			</div>
 			{!isLoading && post ? (
 				<Card className="relative">
 					{/*  */}
-					<Button
-						size="icon"
-						className={"absolute top-4 right-4"}
-						variant="outline"
-						onClick={() => setIsEditing((prev) => !prev)}
-					>
-						{isEditing ? <PencilOff /> : <Pencil />}
-					</Button>
 
 					{!isEditing ? (
 						<CardHeader>

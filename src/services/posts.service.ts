@@ -72,6 +72,19 @@ class PostsService {
 
 		return response.json();
 	}
+
+	async deletePost(id: number): Promise<void> {
+		const response = await fetch(`${this.BASE_URL}/${id}`, {
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+
+		if (!response.ok) throw new Error("Failed to delete post");
+
+		return response.json();
+	}
 }
 
 export const postsService = new PostsService();

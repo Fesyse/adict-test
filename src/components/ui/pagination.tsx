@@ -7,7 +7,7 @@ import * as React from "react";
 
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Link, LinkProps } from "react-router";
+import { LinkProps, NavLink } from "react-router";
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
 	return (
@@ -50,7 +50,7 @@ function PaginationLink({
 	...props
 }: PaginationLinkProps) {
 	return (
-		<Link
+		<NavLink
 			aria-current={isActive ? "page" : undefined}
 			data-slot="pagination-link"
 			data-active={isActive}
