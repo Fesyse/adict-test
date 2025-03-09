@@ -4,7 +4,8 @@
 	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
-		"dev": "sh -c 'vite & node ./src/mocks/server.js'",
+		"dev": "vite",
+		"dev:msw": "node ./src/mocks/server.js",
 		"build": "tsc -b && vite build",
 		"lint": "eslint .",
 		"preview": "vite preview",

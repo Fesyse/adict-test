@@ -2,7 +2,7 @@ import { removeDuplicates } from "@/lib/utils";
 import { type Post } from "@/types/post";
 
 class PostsService {
-	private BASE_URL = "https://jsonplaceholder.typicode.com/posts";
+	private BASE_URL = "http://localhost:8000/api/posts";
 
 	async getPosts(): Promise<Post[]> {
 		const response = await fetch(this.BASE_URL, {

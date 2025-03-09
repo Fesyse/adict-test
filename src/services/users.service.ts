@@ -1,7 +1,7 @@
 import { User } from "@/types/user";
 
 class UsersService {
-	private BASE_URL = "https://jsonplaceholder.typicode.com/users";
+	private BASE_URL = "http://localhost:8000/api/users";
 
 	async getUserById(id: number): Promise<User> {
 		const response = await fetch(`${this.BASE_URL}/${id}`, {

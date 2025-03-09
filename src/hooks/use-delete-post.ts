@@ -8,7 +8,12 @@ export const useDeletePost = (id: number) => {
 		mutationFn: async () => {
 			const response = await postsService.deletePost(id);
 
-			queryClient.setQueryData(["post", id], () => null);
+			queryClient.invalidateQueries({
+				queryKey: ["post", id],
+			});
+			queryClient.invalidateQueries({
+				queryKey: ["posts"],
+			});
 
 			return response;
 		},

@@ -1,7 +1,7 @@
 import { type Comment } from "@/types/comment";
 
 class CommentsService {
-	private BASE_URL = "https://jsonplaceholder.typicode.com/comments";
+	private BASE_URL = "http://localhost:8000/api/comments";
 
 	async getComments(postId: number): Promise<Comment[]> {
 		const response = await fetch(`${this.BASE_URL}?postId=${postId}`, {

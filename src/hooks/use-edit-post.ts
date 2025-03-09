@@ -1,7 +1,6 @@
 import { type EditPostSchema } from "@/lib/schemas";
 import { type PostPageParams } from "@/pages/posts/[id]";
 import { postsService } from "@/services/posts.service";
-import { type Post } from "@/types/post";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import { toast } from "sonner";
@@ -20,13 +19,14 @@ export const useEditPost = () => {
 				...data,
 			});
 
-			queryClient.setQueryData(
-				["post", post.id],
-				(oldPost: Post): Post => ({
-					...oldPost,
-					...post,
-				})
-			);
+			queryClient.invalidateQueries({
+				queryKey: ["post", id],
+			});
+			queryClient.invalidateQueries({
+				queryKey: ["posts"],
+			});
+
+			return post;
 		},
 		onSuccess: () => {
 			toast.success(`Post successfully updated!`);
