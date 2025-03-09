@@ -26,5 +26,8 @@ export const useCreatePost = () => {
 		onSuccess: () => {
 			toast.success(`Post successfully created!`);
 		},
+		onError: (error) => {
+			toast.error(`Failed to create post: ${error.message}`);
+		},
 	});
 };

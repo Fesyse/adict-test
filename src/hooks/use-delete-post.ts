@@ -26,7 +26,7 @@ export const useDeletePost = (id: number) => {
 				queryKey: ["posts"],
 			});
 
-			toast.success("Post deleted successfully");
+			toast.success("Post deleted successfully!");
 		},
 		onError: () => {
 			toast.error("Failed to delete post");

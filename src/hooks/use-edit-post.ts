@@ -30,5 +30,8 @@ export const useEditPost = () => {
 		onSuccess: () => {
 			toast.success(`Post successfully updated!`);
 		},
+		onError: (error) => {
+			toast.error(`Failed to update post: ${error.message}`);
+		},
 	});
 };
