@@ -51,9 +51,7 @@ export function Pagination({
 			if (startPage > 1) {
 				pageNumbers.push(
 					<PaginationItem key={1}>
-						<PaginationLink
-							to={`?page=${pagination.page}&${searchParamsAsString}`}
-						>
+						<PaginationLink to={`?page=${1}&${searchParamsAsString}`}>
 							1
 						</PaginationLink>
 					</PaginationItem>
