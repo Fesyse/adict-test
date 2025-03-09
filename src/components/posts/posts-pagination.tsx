@@ -1,6 +1,6 @@
 import { Pagination } from "@/components/pagination";
 import { usePaginationSearchParams } from "@/hooks/use-pagination-search-params";
-import { Post } from "@/types/post";
+import { type Post } from "@/types/post";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router";
 

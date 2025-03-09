@@ -1,5 +1,5 @@
 import { removeDuplicates } from "@/lib/utils";
-import { Post } from "@/types/post";
+import { type Post } from "@/types/post";
 
 class PostsService {
 	private BASE_URL = "https://jsonplaceholder.typicode.com/posts";

@@ -7,7 +7,7 @@ import {
 	PaginationPrevious,
 	Pagination as PaginationRoot,
 } from "@/components/ui/pagination";
-import { Pagination as TPagination } from "@/types/pagination";
+import { type Pagination as TPagination } from "@/types/pagination";
 
 type PaginationProps = {
 	pagination: TPagination;
