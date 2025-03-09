@@ -39,16 +39,21 @@ export const PostPage = () => {
 
 	return (
 		<div className="min-h-screen flex justify-center flex-col max-w-lg mx-auto py-20">
-			{isLoading || !post ? (
+			{isLoading || post ? (
 				<Card>
 					<CardHeader>
-						<CardTitle className="space-y-1.5">
-							<Skeleton className="w-2/5 h-6 mb-2.5" />
+						<CardTitle className="mb-2.5">
+							<Skeleton className="w-2/5 h-6" />
+						</CardTitle>
+						<CardDescription className="space-y-1.5">
 							<Skeleton className="w-full h-5" />
 							<Skeleton className="w-full h-5" />
 							<Skeleton className="w-1/3 h-5" />
-						</CardTitle>
+						</CardDescription>
 					</CardHeader>
+					<CardContent>
+						<Skeleton className="h-20 w-full" />
+					</CardContent>
 				</Card>
 			) : (
 				<Card>
