@@ -1,3 +1,4 @@
+import { GoBackButton } from "@/components/go-back-button";
 import { PostPageLoading } from "@/components/posts/post/post-page-loading";
 import {
 	Accordion,
@@ -5,7 +6,6 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
 import {
 	Card,
 	CardContent,
@@ -24,9 +24,7 @@ const PostNotFound = () => {
 	return (
 		<div className="min-h-screen flex flex-col items-center justify-center gap-1">
 			<p className="text-muted-foreground text-lg">Post not found</p>
-			<Button variant="secondary" onClick={() => window.history.back()}>
-				Go back
-			</Button>
+			<GoBackButton />
 		</div>
 	);
 };
@@ -38,7 +36,8 @@ export const PostPage = () => {
 	if (isError) return <PostNotFound />;
 
 	return (
-		<div className="min-h-screen flex justify-center flex-col max-w-lg mx-auto py-20">
+		<div className="min-h-screen flex justify-center flex-col max-w-lg mx-auto gap-2 py-20">
+			<GoBackButton className="w-fit" variant="outline" />
 			{!isLoading && post ? (
 				<Card>
 					<CardHeader>
