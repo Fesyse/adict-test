@@ -1,4 +1,5 @@
 import { GoBackButton } from "@/components/go-back-button";
+import { EditPost } from "@/components/posts/post/edit-post";
 import { PostPageLoading } from "@/components/posts/post/post-page-loading";
 import {
 	Accordion,
@@ -6,6 +7,7 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 import {
 	Card,
 	CardContent,
@@ -14,6 +16,9 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { usePost } from "@/hooks/use-post";
+import { cn } from "@/lib/utils";
+import { Edit } from "lucide-react";
+import { useState } from "react";
 import { useParams } from "react-router";
 
 type PostPageParams = {
@@ -33,23 +38,43 @@ export const PostPage = () => {
 	const { id } = useParams<PostPageParams>();
 	const { data: post, isLoading, isError } = usePost(Number(id));
 
+	const [isEditing, setIsEditing] = useState(false);
+
 	if (isError) return <PostNotFound />;
 
 	return (
 		<div className="min-h-screen flex justify-center flex-col max-w-lg mx-auto gap-2 py-20">
 			<GoBackButton className="w-fit" variant="outline" />
 			{!isLoading && post ? (
-				<Card>
-					<CardHeader>
-						<CardTitle className="text-xl">{post.title}</CardTitle>
-						<CardDescription>{post.body}</CardDescription>
-						<div className="flex justify-between gap-2">
-							<div className="text-foreground/80">
-								Posted by{" "}
-								<span className="font-semibold">@{post.author.username}</span>
+				<Card className="relative">
+					<Button
+						size="icon"
+						className={cn(
+							"absolute top-4 right-4 before:content-[''] before:absolute before:w-2/3 before:h-px z-50 before:bg-foreground before:rotate-45 before:block before:transition-transform",
+							{
+								"before:scale-x-100": isEditing,
+								"before:scale-x-0": !isEditing,
+							}
+						)}
+						variant="outline"
+						onClick={() => setIsEditing((prev) => !prev)}
+					>
+						<Edit />
+					</Button>
+					{!isEditing ? (
+						<CardHeader>
+							<CardTitle className="text-xl">{post.title}</CardTitle>
+							<CardDescription>{post.body}</CardDescription>
+							<div className="flex justify-between gap-2">
+								<div className="text-foreground/80">
+									Posted by{" "}
+									<span className="font-semibold">@{post.author.username}</span>
+								</div>
 							</div>
-						</div>
-					</CardHeader>
+						</CardHeader>
+					) : (
+						<EditPost post={post} setIsEditing={setIsEditing} />
+					)}
 					<CardContent>
 						<Accordion type="single" collapsible>
 							<AccordionItem value="comments">
