@@ -16,6 +16,7 @@ export default defineConfig({
 	server: {
 		port: 3000,
 	},
+	// @ts-expect-error Vitest is not typed
 	test: {
 		environment: "jsdom",
 		setupFiles: ["./src/setupTests.ts"],

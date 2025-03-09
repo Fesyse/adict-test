@@ -52,6 +52,32 @@ Backend (моковые данные)
 
 В `package.json` указаны зависимости для разработки и сборки приложения.
 
+## Применение принципов SOLID
+
+### Single Responsibility Principle (Принцип единственной ответственности)
+
+- [`PostCard`](src/components/posts/post-card.tsx) отвечает только за отображение карточки поста
+- [`PostActions`](src/components/posts/post/post-actions.tsx) инкапсулирует только логику действий с постом
+- [`Pagination`](src/components/pagination.tsx) занимается исключительно пагинацией
+- [`GoBackButton`](src/components/go-back-button.tsx) реализует только навигацию назад
+
+### Open/Closed Principle (Принцип открытости/закрытости)
+
+- [`Button`](src/components/ui/button.tsx) расширяется через variants и props, не требуя изменения базовой реализации
+- [`Card`](src/components/ui/card.tsx) компоненты расширяются через композицию (CardHeader, CardContent и т.д.)
+- [`Dialog`](src/components/ui/dialog.tsx) расширяется через композицию дочерних компонентов
+
+### Interface Segregation Principle (Принцип разделения интерфейсов)
+
+- [`Form`](src/components/ui/form.tsx) разделен на специализированные компоненты (FormField, FormItem, FormControl)
+- [`DropdownMenu`](src/components/ui/dropdown-menu.tsx) разбит на специализированные подкомпоненты для разных частей меню
+
+### Dependency Inversion Principle (Принцип инверсии зависимостей)
+
+- [`CreatePost`](src/components/posts/create-post.tsx) использует абстракции через хуки (useCreatePost) вместо прямых зависимостей
+- [`PostsFilters`](src/components/posts/posts-filters.tsx) работает с абстракцией хранилища через хук usePostsFiltersStore
+- [`CreatePostForm`](src/components/posts/create-post/create-post-form.tsx) работает с абстракцией формы через хук useForm
+
 ## Примечания
 
 Использовал tailwind CSS и Shadcn UI для более быстрой разработки.
