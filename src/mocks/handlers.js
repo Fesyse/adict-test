@@ -123,6 +123,7 @@ export const handlers = [
 			return internalServerErrorResponse;
 		}
 	}),
+
 	// Comments
 	http.get("http://localhost:8000/api/comments", ({ request }) => {
 		try {
@@ -147,6 +148,7 @@ export const handlers = [
 			return internalServerErrorResponse;
 		}
 	}),
+
 	// Users
 	http.get("http://localhost:8000/api/users/:id", ({ params }) => {
 		try {
