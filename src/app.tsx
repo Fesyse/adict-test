@@ -1,5 +1,5 @@
 import { PostsPage } from "@/pages";
-import { PostPage } from "@/pages/posts";
+import { PostPage } from "@/pages/posts/[id]";
 import { Route, Routes } from "react-router";
 
 export function App() {
