@@ -1,3 +1,4 @@
+import { CreatePost } from "@/components/posts/create-post";
 import { PostCard } from "@/components/posts/post-card";
 import { PostCardLoading } from "@/components/posts/post-card-loading";
 import { PostsFilters } from "@/components/posts/posts-filters";
@@ -16,7 +17,10 @@ export const PostsPage = () => {
 
 	return (
 		<div className="min-h-screen py-20 max-w-lg mx-auto">
-			<PostsFilters className="mb-8" />
+			<div className="mb-8 flex gap-2">
+				<PostsFilters className="w-full" />
+				<CreatePost />
+			</div>
 
 			<ul className="flex flex-col gap-6">
 				{paginatedPosts?.length && !isLoading ? (
