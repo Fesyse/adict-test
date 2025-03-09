@@ -27,6 +27,42 @@ type PostActionsProps = {
 	setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+type DeletePostDialogProps = {
+	isOpen: boolean;
+	onClose: () => void;
+	onDelete: () => void;
+};
+
+function DeletePostDialog({
+	isOpen,
+	onClose,
+	onDelete,
+}: DeletePostDialogProps) {
+	return (
+		<AlertDialog onOpenChange={onClose} open={isOpen}>
+			<AlertDialogContent>
+				<AlertDialogHeader>
+					<AlertDialogTitle>
+						Are you sure you want to delete this post?
+					</AlertDialogTitle>
+					<AlertDialogDescription>
+						This action cannot be undone. This will permanently delete post and
+						remove your it's data from our servers.
+					</AlertDialogDescription>
+				</AlertDialogHeader>
+				<AlertDialogFooter>
+					<Button variant="secondary" onClick={onClose}>
+						Cancel
+					</Button>
+					<Button variant="destructive" onClick={onDelete}>
+						Delete
+					</Button>
+				</AlertDialogFooter>
+			</AlertDialogContent>
+		</AlertDialog>
+	);
+}
+
 export const PostActions: React.FC<PostActionsProps> = ({ setIsEditing }) => {
 	const navigate = useNavigate();
 
@@ -57,41 +93,21 @@ export const PostActions: React.FC<PostActionsProps> = ({ setIsEditing }) => {
 					</DropdownMenuGroup>
 				</DropdownMenuContent>
 			</DropdownMenu>
-			{/* Delete post dialog */}
-			<AlertDialog onOpenChange={setAlertOpen} open={alertOpen}>
-				<AlertDialogContent>
-					<AlertDialogHeader>
-						<AlertDialogTitle>
-							Are you sure you want to delete this post?
-						</AlertDialogTitle>
-						<AlertDialogDescription>
-							This action cannot be undone. This will permanently delete post
-							and remove your it's data from our servers.
-						</AlertDialogDescription>
-					</AlertDialogHeader>
-					<AlertDialogFooter>
-						<Button variant="secondary" onClick={() => setAlertOpen(false)}>
-							Cancel
-						</Button>
-						<Button
-							variant="destructive"
-							onClick={() => {
-								setAlertOpen(false);
-								deletePost(undefined, {
-									onError: (error) => {
-										console.log("Error deleting post", error);
-									},
-									onSuccess: () => {
-										navigate(`/`);
-									},
-								});
-							}}
-						>
-							Delete
-						</Button>
-					</AlertDialogFooter>
-				</AlertDialogContent>
-			</AlertDialog>
+
+			<DeletePostDialog
+				isOpen={alertOpen}
+				onClose={() => setAlertOpen(false)}
+				onDelete={() => {
+					deletePost(undefined, {
+						onError: (error) => {
+							console.log("Error deleting post", error);
+						},
+						onSuccess: () => {
+							navigate(`/`);
+						},
+					});
+				}}
+			/>
 		</>
 	);
 };
