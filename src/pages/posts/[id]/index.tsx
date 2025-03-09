@@ -16,8 +16,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { usePost } from "@/hooks/use-post";
-import { cn } from "@/lib/utils";
-import { Edit } from "lucide-react";
+import { Pencil, PencilOff } from "lucide-react";
 import { useState } from "react";
 import { useParams } from "react-router";
 
@@ -47,20 +46,16 @@ export const PostPage = () => {
 			<GoBackButton className="w-fit" variant="outline" />
 			{!isLoading && post ? (
 				<Card className="relative">
+					{/*  */}
 					<Button
 						size="icon"
-						className={cn(
-							"absolute top-4 right-4 before:content-[''] before:absolute before:w-2/3 before:h-px z-50 before:bg-foreground before:rotate-45 before:block before:transition-transform",
-							{
-								"before:scale-x-100": isEditing,
-								"before:scale-x-0": !isEditing,
-							}
-						)}
+						className={"absolute top-4 right-4"}
 						variant="outline"
 						onClick={() => setIsEditing((prev) => !prev)}
 					>
-						<Edit />
+						{isEditing ? <PencilOff /> : <Pencil />}
 					</Button>
+
 					{!isEditing ? (
 						<CardHeader>
 							<CardTitle className="text-xl">{post.title}</CardTitle>

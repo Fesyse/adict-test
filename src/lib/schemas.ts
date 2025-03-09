@@ -6,3 +6,7 @@ export const createPostSchema = z.object({
 });
 
 export type CreatePostSchema = z.infer<typeof createPostSchema>;
+
+export const editPostSchema = createPostSchema;
+
+export type EditPostSchema = z.infer<typeof editPostSchema>;

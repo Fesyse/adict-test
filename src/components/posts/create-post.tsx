@@ -94,6 +94,7 @@ export const CreatePost = () => {
 								</FormItem>
 							)}
 						/>
+
 						<DialogFooter>
 							<Button
 								variant="secondary"
